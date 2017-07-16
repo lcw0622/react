@@ -7,10 +7,16 @@ var dao = require('./routes/dao')
 var http = require('http');
 var path = require('path');
 
+var https = require('https');
+var fs = require('fs');
+var privateKey = fs.readFileSync('../cert/goingdown.top.key','utf8');
+var certificate = fs.readFileSync('../cert/goingdown.top.crt','utf8');
+var cerdentials = {key: privateKey, cert: certificate};
+
 var app = express();
 
 // all environments
-app.set('port', 18080);
+app.set('port', 80);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -35,4 +41,5 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+https.createServer(cerdentials,app).listen(443);
 

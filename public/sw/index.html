@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <title>Service Worker Test</title>
+    <link rel="manifest" href="/manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('../sw.js').then(function(registration){
+                console.log('sw.js is online...',registration);
+            });
+            // Wait until the SW has taken control of the page before inserting the <script> elements.
+            // That way we can be sure the SW's fetch handler will intercept them.
+            // navigator.serviceWorker.ready.then(() => {
+            //     ['one.js', 'two.js'].forEach(url => {
+            //         var scriptElement = document.createElement('script');
+            //         scriptElement.src = url;
+            //         document.body.appendChild(scriptElement);
+            //     });
+            // });
+        }
+    </script>
+    <script src="one.js"></script>
+    <script src="two.js"></script>
+    <script src="three.js"></script>
+</head>
+
+<body>
+    Test...
+</body>
+<!--<script src="one.js"></script>
+<script src="two.js"></script>-->
+
+</html>
